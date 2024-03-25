@@ -26,6 +26,11 @@
 # Después de que termine un juego, preguntar al usuario si desea jugar de nuevo.ok
 # Manejo de Errores:
 # Implementar manejo de errores para entradas inválidas (por ejemplo, caracteres no alfabéticos, suposiciones repetidas).ok
+
+#----------------------------------------------------------
+# V2 - Implementar el uso de objetos y hacer uso de ellos. 
+
+
 import random
 import string
 
