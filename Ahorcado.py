@@ -32,6 +32,8 @@ import string
 #Seleccion de palabra
 
 def eleccion_de_palabra (lista_de_palabra):
+    
+    #Restringir el lo que ingresa el usuario a solamente Si o No... ya que puede confundirse e ingresar cualquier otro texto como si fuera la palabra a ingresar.
     respuesta = input ("Desea elegir palabra para que su rival adivine ? (Si/No): ") 
 
     if respuesta.lower() == "si":
@@ -43,8 +45,11 @@ def eleccion_de_palabra (lista_de_palabra):
 
 #Ayuda al usuario
 def ayuda_al_usuario ():
+    #Restringir el lo que ingresa el usuario a solamente Si o No...
     ayuda = input ("necesitas ayuda? (Si/no)")
     if ayuda.lower() == "si":
+        #Este input no devuelve nada, y luego vuelve a pedir la palabra supuesta.
+        # Luego del segundo input la ayuda no hace nada. 
         input ("comentame tu suposición")
         return input ("tu suposición es: ")
 
@@ -52,6 +57,7 @@ def ayuda_al_usuario ():
 #Tablero de juego
         
 def adivinar_palabra (palabra_secreta, letras_adivinadas, intentos_restantes):
+
     palabra=""
     for letra in palabra_secreta:
 
@@ -71,19 +77,21 @@ def seguir_jugando ():
     if continuar_juego.lower() == "si":
         jugar_ahorcado ()
     else:
+        #Esta bien que por default si no pone "si" avise que sale del juego pero deberia avisar que seleccion el No por default.
         print("gracias por jugar al juego del ahorcado")
     return
 
 #logica de juego
     
 def jugar_ahorcado ():
+
     lista_de_palabra = ["programador", "aprendiendo", "juego", "phyton", "react", "javascript"]
     palabra_secreta = eleccion_de_palabra(lista_de_palabra)
     letra_adivinadas = []
     intentos_restantes = 5
 
     print("Bienvenido al juego del ahorcado")
-    print("La palabra a adivinar es: ")
+    print("La palabra a adivinar es: ") 
 
     while intentos_restantes>0:
         adivinar_palabra(palabra_secreta, letra_adivinadas, intentos_restantes)
@@ -97,12 +105,12 @@ def jugar_ahorcado ():
             print("Entrada inválida. Por favor, introduce una letra del alfabeto.")
             continue
 
+        #Si la palabra ingresa tiene alguna mayuscula y el usuario no la ingresa en mayuscula no la reconoce. 
         if letra in palabra_secreta:
             letra_adivinadas.append(letra)
             if set (letra_adivinadas) == set (palabra_secreta):
                 print ("has acertado la palabra")
                 break
-
         else:
             intentos_restantes-=1
             print (f"Letra incorrecta. te quedan {intentos_restantes}")
