@@ -29,24 +29,34 @@
 import random
 import string
 
-#Seleccion de palabra
+
 
 def eleccion_de_palabra (lista_de_palabra):
-    respuesta = input ("Desea elegir palabra para que su rival adivine ? (Si/No): ") 
+    while True:
+        respuesta = input ("Desea elegir palabra para que su rival adivine ? (Si/No): ") 
 
-    if respuesta.lower() == "si":
-        palabra_elegida = input ("Escribi la palabra: ")
-        return palabra_elegida
-    
-    palabra_elegida = random.choice(lista_de_palabra)
-    return palabra_elegida
+        if respuesta.lower() == "si":
+           palabra_elegida = input ("Escribi la palabra: ")
+           return palabra_elegida.lower()
+        elif respuesta.lower() == "no":
+           return random.choice(lista_de_palabra)
+        else:
+           print("Respuesta no válida. Por favor, responde 'Si' o 'No'.")
+
+
 
 #Ayuda al usuario
-def ayuda_al_usuario ():
-    ayuda = input ("necesitas ayuda? (Si/no)")
-    if ayuda.lower() == "si":
-        input ("comentame tu suposición")
-        return input ("tu suposición es: ")
+def ayuda_al_usuario():
+    while True:
+      ayuda = input("¿Necesitas ayuda? (Si/No): ")
+      if ayuda.lower() == "si":
+         pista = input("Darle pista al usuario: ")
+         return pista
+      elif ayuda.lower() == "no":
+         return None
+      else:
+         print("Respuesta no válida. Por favor, responde 'Si' o 'No'.")
+
 
 
 #Tablero de juego
@@ -55,8 +65,8 @@ def adivinar_palabra (palabra_secreta, letras_adivinadas, intentos_restantes):
     palabra=""
     for letra in palabra_secreta:
 
-        if letra in letras_adivinadas:
-            palabra+= letra
+        if letra.lower() in letras_adivinadas:
+            palabra+= letra.lower()
 
         else:
             palabra += "-"
@@ -70,15 +80,20 @@ def seguir_jugando ():
     continuar_juego = input ("queres seguir jugando: (si/no)")
     if continuar_juego.lower() == "si":
         jugar_ahorcado ()
+    elif continuar_juego.lower() == "no":
+        print("Gracias por jugar al juego del ahorcado")
     else:
-        print("gracias por jugar al juego del ahorcado")
-    return
+        print("Respuesta no válida. Por favor, responde 'Si' o 'No'.")
+
 
 #logica de juego
     
 def jugar_ahorcado ():
     lista_de_palabra = ["programador", "aprendiendo", "juego", "phyton", "react", "javascript"]
     palabra_secreta = eleccion_de_palabra(lista_de_palabra)
+    if  palabra_secreta is None:
+        return
+
     letra_adivinadas = []
     intentos_restantes = 5
 
@@ -97,9 +112,9 @@ def jugar_ahorcado ():
             print("Entrada inválida. Por favor, introduce una letra del alfabeto.")
             continue
 
-        if letra in palabra_secreta:
+        if letra in palabra_secreta.lower():
             letra_adivinadas.append(letra)
-            if set (letra_adivinadas) == set (palabra_secreta):
+            if set (letra_adivinadas) == set (palabra_secreta.lower()):
                 print ("has acertado la palabra")
                 break
 
